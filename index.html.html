@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Linear Exclusiva - Corrêas, Petrópolis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://imgur.com/z4GH8Tf.png') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .summary-card {
+            background: white;
+            margin: -80px auto 0;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .price-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .price-info {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .spec-box {
+            background: #f8f9fa;
+            padding: 12px 8px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 70px;
+        }
+
+        .spec-number {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2c3e50;
+            display: block;
+        }
+
+        .spec-label {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background: #2c3e50;
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gallery {
+            background: white;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .carousel-slide {
+            display: none;
+            width: 100%;
+            height: 900px;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(0,0,0,0.7);
+        }
+
+        .carousel-prev {
+            left: 20px;
+        }
+
+        .carousel-next {
+            right: 20px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: #2c3e50;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .details {
+            background: #f8f9fa;
+        }
+
+        .details-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 40px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .feature-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .contact {
+            background: #1a252f;
+            color: white;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact-info {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        .location {
+            background: white;
+        }
+
+        .map {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 40px;
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .summary-card {
+                margin: -50px 10px 0;
+                padding: 25px;
+            }
+
+            .price {
+                font-size: 2.2rem;
+            }
+
+            .specs-grid {
+                gap: 10px;
+            }
+
+            .spec-box {
+                padding: 10px 6px;
+                min-height: 65px;
+            }
+
+            .spec-number {
+                font-size: 1.3rem;
+            }
+
+            .spec-label {
+                font-size: 0.75rem;
+            }
+
+            .carousel-slide {
+                height: 300px;
+            }
+
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-prev {
+                left: 10px;
+            }
+
+            .carousel-next {
+                right: 10px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.7rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .summary-card {
+                padding: 20px;
+            }
+
+            .spec-box {
+                padding: 8px 4px;
+                min-height: 60px;
+            }
+
+            .spec-number {
+                font-size: 1.1rem;
+            }
+
+            .spec-label {
+                font-size: 0.7rem;
+            }
+
+            .carousel-slide {
+                height: 350px;
+            }
+
+            .carousel-caption {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+                bottom: 10px;
+                left: 10px;
+            }
+
+            .description {
+                font-size: 1rem;
+                line-height: 1.6;
+                text-align: justify;
+                text-align-last: left;
+                text-justify: inter-word;
+                hyphens: auto;
+                word-spacing: -1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SEÇÃO PRINCIPAL -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Casa Linear Exclusiva</h1>
+            <p>Corrêas, Petrópolis/RJ</p>
+            <p>Código: 12018603</p>
+        </div>
+    </div>
+
+    <!-- RESUMO DA PROPRIEDADE -->
+    <div class="container">
+        <div class="summary-card">
+            <div class="price-section">
+                <div class="price">R$ 1.300.000</div>
+                <div class="price-info">R$ 3.333/m² • IPTU: R$ 919</div>
+            </div>
+
+            <div class="specs-grid">
+                <div class="spec-box">
+                    <span class="spec-number">390m²</span>
+                    <span class="spec-label">Área Construída</span>
+                </div>
+                <div class="spec-box">
+                    <span class="spec-number">6.200m²</span>
+                    <span class="spec-label">Terreno</span>
+                </div>
+                <div class="spec-box">
+                    <span class="spec-number">6</span>
+                    <span class="spec-label">Quartos</span>
+                </div>
+                <div class="spec-box">
+                    <span class="spec-number">1</span>
+                    <span class="spec-label">Suíte</span>
+                </div>
+                <div class="spec-box">
+                    <span class="spec-number">6</span>
+                    <span class="spec-label">Banheiros</span>
+                </div>
+                <div class="spec-box">
+                    <span class="spec-number">4</span>
+                    <span class="spec-label">Vagas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALERIA -->
+    <div class="section gallery">
+        <div class="container">
+            <h2 class="section-title">Galeria da Propriedade</h2>
+            
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="https://imgur.com/01D9J9v.png" alt="Área da Piscina">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://imgur.com/wcwDyDY.png" alt="Fachada">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://imgur.com/4UwS1H0.png" alt="Sala de Estar">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://imgur.com/Kay5plr.png" alt="Cozinha">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://imgur.com/zpSkis9.png" alt="Suíte Master">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://imgur.com/knHroIU.png" alt="Quarto">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://imgur.com/uULVZk3.png" alt="Varanda">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://imgur.com/8bbzkgS.png" alt="Jardim">
+                </div>
+                <div class="carousel-slide">
+    		    <img src="https://imgur.com/mdjvFli.png" alt="Descrição">
+                </div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/KkzwBX8.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/DVPo3Et.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/iU7h3zP.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/DfUX4C0.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/PcI9pch.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/3iJj1MV.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/ccwvaSi.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/wssZRt8.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/Eu6vNXQ.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/0UixlQg.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/GorLpLd.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/fKpwbCk.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/iHit5Mv.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/H7G5iLp.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/HiZJyvB.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/z4GH8Tf.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/DbXiVyo.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/WVjpUoL.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/1lYEGZ7.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/38nzhEC.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/up0Skcg.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/ToZSsRX.png" alt="Descrição">
+		</div>
+		<div class="carousel-slide">
+    		    <img src="https://imgur.com/SORIh9z.png" alt="Descrição">
+		</div>
+		
+                <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">❮</button>
+                <button class="carousel-nav carousel-next" onclick="changeSlide(1)">❯</button>
+            </div>
+
+            <div class="carousel-dots">
+                <span class="carousel-dot active" onclick="currentSlide(1)"></span>
+                <span class="carousel-dot" onclick="currentSlide(2)"></span>
+                <span class="carousel-dot" onclick="currentSlide(3)"></span>
+                <span class="carousel-dot" onclick="currentSlide(4)"></span>
+                <span class="carousel-dot" onclick="currentSlide(5)"></span>
+                <span class="carousel-dot" onclick="currentSlide(6)"></span>
+                <span class="carousel-dot" onclick="currentSlide(7)"></span>
+                <span class="carousel-dot" onclick="currentSlide(8)"></span>
+                <span class="carousel-dot" onclick="currentSlide(9)"></span>
+                <span class="carousel-dot" onclick="currentSlide(10)"></span>
+                <span class="carousel-dot" onclick="currentSlide(11)"></span>
+                <span class="carousel-dot" onclick="currentSlide(12)"></span>
+                <span class="carousel-dot" onclick="currentSlide(13)"></span>
+                <span class="carousel-dot" onclick="currentSlide(14)"></span>
+                <span class="carousel-dot" onclick="currentSlide(15)"></span>
+                <span class="carousel-dot" onclick="currentSlide(16)"></span>
+                <span class="carousel-dot" onclick="currentSlide(17)"></span>
+                <span class="carousel-dot" onclick="currentSlide(18)"></span>
+                <span class="carousel-dot" onclick="currentSlide(19)"></span>
+                <span class="carousel-dot" onclick="currentSlide(20)"></span>
+                <span class="carousel-dot" onclick="currentSlide(21)"></span>
+                <span class="carousel-dot" onclick="currentSlide(22)"></span>
+                <span class="carousel-dot" onclick="currentSlide(23)"></span>
+                <span class="carousel-dot" onclick="currentSlide(24)"></span>
+                <span class="carousel-dot" onclick="currentSlide(25)"></span>
+                <span class="carousel-dot" onclick="currentSlide(26)"></span>
+                <span class="carousel-dot" onclick="currentSlide(27)"></span>
+                <span class="carousel-dot" onclick="currentSlide(28)"></span>
+                <span class="carousel-dot" onclick="currentSlide(29)"></span>
+                <span class="carousel-dot" onclick="currentSlide(30)"></span>
+                <span class="carousel-dot" onclick="currentSlide(31)"></span>
+                <span class="carousel-dot" onclick="currentSlide(32)"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- DETALHES -->
+    <div class="section details">
+        <div class="container">
+            <h2 class="section-title">Detalhes da Propriedade</h2>
+            
+            <div class="details-content">
+                <div class="description">
+                    Localizada em Corrêas, esta charmosa residência combina conforto, lazer e contato com a natureza. São 390m² de área construída em um amplo terreno de 8.862m², com ambientes aconchegantes e bem distribuídos. A casa principal conta com sala de estar com lareira, varanda aberta, 4 quartos (sendo 1 suíte), 2 banheiros completos, cozinha, lavanderia e dependência de empregada. Na área externa, o imóvel oferece churrasqueira, piscina, quadra de tênis privativa, deck de madeira, jardim paisagístico e vista para as montanhas, além de ampla área verde preservada. Para receber com conforto, há ainda um anexo de hóspedes com 2 quartos, banheiro e cozinha. A propriedade oferece privacidade moderada e vistas deslumbrantes da região serrana, sendo uma oportunidade única para quem busca tranquilidade e sofisticação em um dos endereços mais nobres de Petrópolis.
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-section">
+                        <h3>Características Internas</h3>
+                        <ul class="feature-list">
+                            <li>6 Quartos no 1º Piso</li>
+                            <li>1 Suíte no 1º Piso</li>
+                            <li>Sala de Estar com Lareira</li>
+                            <li>Varanda Aberta</li>
+                            <li>Dependência de Empregada</li>
+                            <li>Cozinha Completa</li>
+                            <li>Lavanderia</li>
+                            <li>Área de Serviço</li>
+                            <li>Aquecimento Elétrico e Gás</li>
+                            <li>Banheiro de Empregada</li>
+                            <li>Padrão de Acabamento: Bom</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-section">
+                        <h3>Área Externa e Lazer</h3>
+                        <ul class="feature-list">
+                            <li>Churrasqueira</li>
+                            <li>Piscina</li>
+                            <li>Quadra de Tênis Privativa</li>
+                            <li>Jardim Paisagístico</li>
+                            <li>Vista para as Montanhas</li>
+                            <li>Área Verde Preservada</li>
+                            <li>Anexo para Hóspedes</li>
+                            <li>Garagem para 4 Carros</li>
+                            <li>Terreno de 8.862m²</li>
+                            <li>Deck de Madeira</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOCALIZAÇÃO -->
+    <div class="section location">
+        <div class="container">
+            <h2 class="section-title">Localização Privilegiada</h2>
+            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 20px;">
+                <strong>📍 Corrêas, Petrópolis/RJ</strong><br>
+                Uma das regiões mais nobres da Serra Fluminense
+            </p>
+            
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.8257503!2d-43.2096!3d-22.5396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989d5a42e17c7f%3A0x8eb3e0b81a45a8bb!2sCorr%C3%AAas%2C%20Petr%C3%B3polis%20-%20RJ!5e0!3m2!1sen!2sbr!4v1640995200000!5m2!1sen!2sbr" 
+                        allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTATO -->
+    <div class="section contact">
+        <div class="container">
+            <h2 class="section-title">Agende sua Visita</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 40px;">
+                Venha conhecer esta propriedade única em Corrêas!
+            </p>
+            
+            <div class="contact-info">
+                <strong>Simone Guimarães</strong>
+            </div>
+            <div class="contact-info">
+                📞 <strong>+55 21 98135-8055</strong>
+            </div>
+            <div class="contact-info">
+                ✉️ <strong>simone.siveg@gmail.com</strong>
+            </div>
+            
+            <p style="font-size: 1rem; margin-top: 40px; opacity: 0.8;">
+                Especialista em imóveis de alto padrão na Serra Fluminense
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("carousel-slide");
+            let dots = document.getElementsByClassName("carousel-dot");
+            
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            slides[slideIndex - 1].classList.add("active");
+            dots[slideIndex - 1].classList.add("active");
+        }
+        
+        // Auto slide (opcional - remove se não quiser)
+        setInterval(() => {
+            changeSlide(1);
+        }, 10000);
+    </script>
+</body>
+</html>
